@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Login - Keywords Extraction{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center my-5">
+    <div class="col-md-8 col-lg-6">
+        <div class="card shadow-lg border-0 rounded-4 overflow-hidden auth-card">
+            <div class="card-header text-center py-4">
+                <h4 class="card-title mb-0 fw-bold">Login to Your Account</h4>
+            </div>
+            <div class="card-body p-5">
+                <form method="POST" class="needs-validation" novalidate>
+                    <div class="mb-4">
+                        <label for="username" class="form-label fs-5">Username</label>
+                        <input type="text" class="form-control form-control-lg" id="username" name="username" required>
+                        <div class="invalid-feedback">
+                            Please enter your username.
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="password" class="form-label fs-5">Password</label>
+                        <input type="password" class="form-control form-control-lg" id="password" name="password" required>
+                        <div class="invalid-feedback">
+                            Please enter your password.
+                        </div>
+                    </div>
+                    <div class="d-grid mt-4">
+                        <button type="submit" class="btn btn-primary btn-lg px-5 shadow-sm">Login <i class="fas fa-sign-in-alt ms-2"></i></button>
+                    </div>
+                </form>
+                <div class="text-center mt-4">
+                    <p class="text-muted mb-0">Don't have an account? <a href="{{ url_for('register') }}" class="text-decoration-none fw-semibold">Register here</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

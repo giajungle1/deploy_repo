@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Keywords Extraction{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-9">
+            <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
+                <div class="card-header text-center py-4">
+                    <h4 class="card-title mb-0 fw-bold">Keywords Extraction Dashboard</h4>
+                </div>
+                <div class="card-body p-4">
+                    <form id="prediction-form" method="POST" class="needs-validation mb-5" novalidate>
+                        <div class="mb-4">
+                            <label for="text" class="form-label fs-5 text-muted">Enter Text for Extraction</label>
+                            <textarea class="form-control form-control-lg" id="text" name="text" rows="6" required>{{ text if text else '' }}</textarea>
+                            <div class="invalid-feedback">
+                                Please enter some text to analyze.
+                            </div>
+                        </div>
+                        <div class="d-grid gap-3 d-md-flex justify-content-md-center">
+                             <button type="submit" class="btn btn-primary btn-lg px-5 shadow-sm">Extract Keywords</button>
+                             <a href="{{ url_for('download_history') }}" class="btn btn-outline-secondary btn-lg px-5 shadow-sm" id="download-history">
+                                 Download History
+                             </a>
+                        </div>
+                    </form>
+
+                    {% if prediction %}
+                    <hr class="my-5">
+                    <div class="row g-4">
+                        <div class="col-md-12 col-lg-6">
+                            <div class="card h-100 shadow-sm border-light">
+                                <div class="card-body">
+                                    <h6 class="card-subtitle mb-3 text-muted border-bottom pb-2">Input Text</h6>
+                                    <div class="alert alert-light border-0 rounded-3" style="word-break: break-word;">{{ text[:200] + '...' if text and text|length > 200 else text }}</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        {% if prediction_results %}
+                        <div class="col-md-12 col-lg-6">
+                             <div class="card h-100 shadow-sm border-light">
+                                <div class="card-body">
+                                    <h6 class="card-subtitle mb-3 text-muted border-bottom pb-2">Extraction Results</h6>
+                                    <div class="list-group list-group-flush">
+                                        {% for keyword, prob in prediction_results %}
+                                        <div class="list-group-item d-flex justify-content-between align-items-center py-2 px-0">
+                                            <span class="fw-semibold">{{ keyword }}</span>
+                                            <span class="badge bg-primary rounded-pill fs-6">{{ "%.2f"|format(prob * 100) }}%</span>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Form validation
+(function () {
+    'use strict'
+    var forms = document.querySelectorAll('.needs-validation')
+    Array.prototype.slice.call(forms).forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+                event.preventDefault()
+                event.stopPropagation()
+            }
+            form.classList.add('was-validated')
+        }, false)
+    })
+})()
+</script>
+{% endblock %} 
