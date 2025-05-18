@@ -38,12 +38,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto align-items-center">
                     {% if current_user.is_authenticated %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('dashboard') }}">
-                                <i class="fas fa-chart-line"></i>
-                                <span class="ms-1">Dashboard</span>
-                            </a>
-                        </li>
+                
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url_for('logout') }}">
                                 <i class="fas fa-sign-out-alt"></i>
